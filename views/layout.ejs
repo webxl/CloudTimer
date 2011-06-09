@@ -22,21 +22,18 @@
   -->
   <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
 
-
   <!-- Place favicon.ico and apple-touch-icon.png in the root of your domain and delete these references -->
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 
   <!-- CSS : implied media="all" -->
+  <link rel="stylesheet" href="/css/html5bp.css">
   <link rel="stylesheet" href="/css/style.css">
-
-  <!-- For the less-enabled mobile browsers like Opera Mini -->
-  <link rel="stylesheet" media="handheld" href="/css/handheld.css">
-
- 
+  
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
-  <script src="js/modernizr-1.5.min.js"></script>
+  <script src="/js/libs/modernizr-2.0.min.js"></script>
+  <script src="/js/libs/respond.min.js"></script>
 
 </head>
 
@@ -50,6 +47,7 @@
 
   <div id="container">
     <header>
+        <h1><%= title %></h1>
         <%= header %>
     </header>
     
@@ -66,21 +64,16 @@
   <!-- Javascript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-  <script>!window.jQuery && document.write('<script src="js/jquery-1.4.2.min.js"><\/script>')</script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write('<script src="js/jquery-1.6.1.min.js"><\/script>')</script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery-ui/1/jquery-ui.min.js"></script>
+  <script>!window.jQuery && document.write('<script src="js/jquery-ui-1.8.13.min.js"><\/script>')</script>
 
   <script src="/js/socket.io.js"></script>
   <script src="/js/plugins.js?v=1"></script>
   <script src="/js/script.js?v=1"></script>
 
-  <!--[if lt IE 7 ]>
-    <script src="js/dd_belatedpng.js?v=1"></script>
-  <![endif]-->
-
-
-  <!-- yui profiler and profileviewer - remove for production -->
-  <script src="/js/profiling/yahoo-profiling.min.js?v=1"></script>
-  <script src="/js/profiling/config.js?v=1"></script>
+ 
   <!-- end profiling code -->
 
 

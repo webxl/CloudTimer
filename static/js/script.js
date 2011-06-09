@@ -1,12 +1,14 @@
-/* Author: 
-
+/*
+    CloudTimer
 */
 
 $(document).ready(function() {   
    
-   io.setPath('/client/');
+   //io.setPath('/client/');
+   
+   var WEB_SOCKET_SWF_LOCATION = '/client/';
    socket = new io.Socket(null, { 
-     port: 8081
+     port: 80
      ,transports: ['websocket', 'htmlfile', 'xhr-multipart', 'xhr-polling']
    });
    socket.connect();

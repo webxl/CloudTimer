@@ -4,7 +4,7 @@ var connect = require('connect')
     , express = require('express')
     , sys = require('sys')
     , io = require('Socket.IO-node')
-    , port = (process.env.PORT || 8081);
+    , port = (process.env.C9_PORT || 8081);
 
 //Setup Express
 var server = express.createServer();
@@ -15,22 +15,25 @@ server.configure(function(){
     server.use(server.router);
 });
 
+
+var siteTitle = "CloudTimer", headerMsg = "", footerMsg = "";
+
 //setup the errors
 server.error(function(err, req, res, next){
     if (err instanceof NotFound) {
         res.render('404.ejs', { locals: { 
-                  header: '#Header#'
-                 ,footer: '#Footer#'
-                 ,title : '404 - Not Found'
+                  header: headerMsg
+                 ,footer: footerMsg
+                 ,title : siteTitle + ': 404 - Not Found'
                  ,description: ''
                  ,author: ''
                  ,analyticssiteid: 'XXXXXXX' 
                 },status: 404 });
     } else {
         res.render('500.ejs', { locals: { 
-                  header: '#Header#'
-                 ,footer: '#Footer#'
-                 ,title : 'The Server Encountered an Error'
+                  header: headerMsg
+                 ,footer: footerMsg
+                 ,title : siteTitle + ': the Server Encountered an Error'
                  ,description: ''
                  ,author: ''
                  ,analyticssiteid: 'XXXXXXX'
@@ -38,7 +41,7 @@ server.error(function(err, req, res, next){
                 },status: 500 });
     }
 });
-server.listen( port);
+server.listen(port, '0.0.0.0');
 
 //Setup Socket.IO
 var io = io.listen(server);
@@ -63,9 +66,9 @@ io.on('connection', function(client){
 server.get('/', function(req,res){
   res.render('index.ejs', {
     locals : { 
-              header: '#Header#'
-             ,footer: '#Footer#'
-             ,title : 'Page Title'
+              header: headerMsg
+             ,footer: footerMsg
+             ,title : siteTitle
              ,description: 'Page Description'
              ,author: 'Your Name'
              ,analyticssiteid: 'XXXXXXX' 
