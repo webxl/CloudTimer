@@ -4,6 +4,7 @@ var connect = require('connect')
     , express = require('express')
     , sys = require('sys')
     , io = require('Socket.IO-node')
+    , timer = require('./timer.js')
     , port = (process.env.C9_PORT || 8081);
 
 //Setup Express
@@ -45,11 +46,19 @@ server.listen(port, '0.0.0.0');
 
 //Setup Socket.IO
 var io = io.listen(server);
+
 io.on('connection', function(client){
+    var onTick = function(time) { client.send(time);},
+        _timer = timer.create({callback: onTick});
+
 	console.log('Client Connected');
+    
 	client.on('message', function(message){
-		client.broadcast(message);
-		client.send(message);
+		
+		_timer.start();
+        
+        client.broadcast('start');
+        client.send('start');
 	});
 	client.on('disconnect', function(){
 		console.log('Client Disconnected.');

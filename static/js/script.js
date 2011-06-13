@@ -14,11 +14,14 @@ $(document).ready(function() {
    socket.connect();
     
    $('#sender').bind('click', function() {
-     socket.send("Message Sent on " + new Date());     
+     socket.send(new Date());     
    });
    
-   socket.on('message', function(data){
-     $('#reciever').append('<li>' + data + '</li>');  
+   socket.on('message', function(time) {
+       if (parseInt(time, 10) == time) { 
+           var minutes = parseInt(time / 60000, 10), seconds = (time % 60000) / 1000;
+           $('#clock').html(minutes + ':' + seconds);
+       }
    });
       
  });
