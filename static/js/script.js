@@ -1,20 +1,18 @@
 /*
     CloudTimer
 */
-
 $(document).ready(function() {   
-   
-   //io.setPath('/client/');
-   
    var WEB_SOCKET_SWF_LOCATION = '/client/';
    socket = new io.Socket(null, { 
-     port: 80
-     ,transports: ['websocket', 'htmlfile', 'xhr-multipart', 'xhr-polling']
+       port: 80, transports: ['websocket', 'htmlfile', 'xhr-multipart', 'xhr-polling']
    });
+   
    socket.connect();
     
-   $('#sender').bind('click', function() {
-     socket.send(new Date());     
+   $('#startstop').bind('click', function() {
+        var action = this.innerHTML == 'Start' ? 'start':'stop';
+        socket.send(action);
+        this.innerHTML = action == 'start' ? 'Stop':'Start';
    });
    
    socket.on('message', function(time) {
@@ -23,6 +21,12 @@ $(document).ready(function() {
            $('#clock').html(minutes + ':' + seconds);
        }
    });
+   
+   socket.on('connect', function (status) {
+        if (status.running) {
+            console.log('connected: ' + status.time);
+        }
+    });
       
  });
 

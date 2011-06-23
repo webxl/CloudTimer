@@ -13,7 +13,15 @@ var timer = {
                 intervalId = setInterval(tickFn, opts.interval);
             }, stopFn = function() {
                 if (intervalId)
-                    cancelInterval(intervalId);            
+                    clearInterval(intervalId);            
+            }, resetFn = function() {
+                stopFn();
+                currentTime = opts.length;    
+            }, statusFn = function() {
+                return {
+                    running: intervalId ? 1:0,
+                    time: currentTime
+                }
             };
             
         for (var setting in options) {
@@ -30,7 +38,9 @@ var timer = {
         
         return {
             start: startFn,
-            stop: stopFn
+            stop: stopFn,
+            reset: resetFn,
+            status: statusFn
         };
     }   
 };

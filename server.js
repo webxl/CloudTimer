@@ -47,19 +47,29 @@ server.listen(port, '0.0.0.0');
 //Setup Socket.IO
 var io = io.listen(server);
 
-io.on('connection', function(client){
-    var onTick = function(time) { client.send(time);},
+  var onTick = function(client, time) { client.send(time);},
         _timer = timer.create({callback: onTick});
+
+io.on('connection', function(client){
+  
 
 	console.log('Client Connected');
     
+    client.send(_timer.status());
+    
 	client.on('message', function(message){
 		
-		_timer.start();
+        if (message == 'start')
+		    _timer.start();
+        if (message == 'stop')
+            _timer.stop();
+        if (message == 'reset')
+            _timer.reset();
         
-        client.broadcast('start');
-        client.send('start');
+        client.broadcast(message);
+        client.send(message);
 	});
+    
 	client.on('disconnect', function(){
 		console.log('Client Disconnected.');
 	});
